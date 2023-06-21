@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="遍历应用程序–tryhackme任务 1 遍历应用程序 在这个房间里，您将学习如何仅使用浏览器中的内置工具手动检查 Web 应用程序的安全问题。通常情况下，自动化安全工具和脚本会遗漏许多潜在漏洞和有用信息。 以下是您将在整个会议室中使用的内置浏览器工具的简短分类：  查看源代码 - 使用浏览器查看网站的人类可读源代码。 检查器 - 了解如何检查页面元素并进行更改以查看通常被阻止的内容。 调试器 -">
+<meta property="og:type" content="article">
+<meta property="og:title" content="walk an application">
+<meta property="og:url" content="http://example.com/2023/06/21/walk-an-application/index.html">
+<meta property="og:site_name" content="Cx330_Zer0&#39;s BLOG">
+<meta property="og:description" content="遍历应用程序–tryhackme任务 1 遍历应用程序 在这个房间里，您将学习如何仅使用浏览器中的内置工具手动检查 Web 应用程序的安全问题。通常情况下，自动化安全工具和脚本会遗漏许多潜在漏洞和有用信息。 以下是您将在整个会议室中使用的内置浏览器工具的简短分类：  查看源代码 - 使用浏览器查看网站的人类可读源代码。 检查器 - 了解如何检查页面元素并进行更改以查看通常被阻止的内容。 调试器 -">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://example.com/2023/06/21/walk-an-application/ccc306acf34d0c83ffd18f33da1a5994.png">
+<meta property="og:image" content="http://example.com/2023/06/21/walk-an-application/96b49cec6712a47c4ea986d26c6b7451-20230621182123623.png">
+<meta property="og:image" content="http://example.com/2023/06/21/walk-an-application/image-20230621183153362.png">
+<meta property="og:image" content="http://example.com/2023/06/21/walk-an-application/image-20230621182858275.png">
+<meta property="og:image" content="http://example.com/2023/06/21/walk-an-application/image-20230621182923292.png">
+<meta property="og:image" content="http://example.com/2023/06/21/walk-an-application/image-20230621182936038.png">
+<meta property="og:image" content="http://example.com/2023/06/21/walk-an-application/image-20230621183101244.png">
+<meta property="article:published_time" content="2023-06-21T09:36:55.000Z">
+<meta property="article:modified_time" content="2023-06-21T10:32:13.157Z">
+<meta property="article:author" content="Cx330 Zer0">
+<meta property="article:tag" content="len-sec">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/2023/06/21/walk-an-application/ccc306acf34d0c83ffd18f33da1a5994.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>walk an application</title>
+    <!-- async scripts -->
+    <!-- Google Analytics -->
+
+
+    <!-- Umami Analytics -->
+
+
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fa-solid fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa-solid fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/zygithub-single?tab=repositories">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2023/06/20/kali-%E5%85%A5%E9%97%A8%E6%8C%87%E5%8D%97/"><i class="fa-solid fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fa-solid fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/06/21/walk-an-application/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/06/21/walk-an-application/&text=walk an application"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/06/21/walk-an-application/&title=walk an application"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/06/21/walk-an-application/&is_video=false&description=walk an application"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=walk an application&body=Check out this article: http://example.com/2023/06/21/walk-an-application/"><i class="fa-solid fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/06/21/walk-an-application/&title=walk an application"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/06/21/walk-an-application/&title=walk an application"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/06/21/walk-an-application/&title=walk an application"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/06/21/walk-an-application/&title=walk an application"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/06/21/walk-an-application/&name=walk an application&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/06/21/walk-an-application/&t=walk an application"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    
+    
+      <div id="toc">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%81%8D%E5%8E%86%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E2%80%93tryhackme"><span class="toc-number">1.</span> <span class="toc-text">遍历应用程序–tryhackme</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1-1-%E9%81%8D%E5%8E%86%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="toc-number">1.1.</span> <span class="toc-text">任务 1 遍历应用程序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1-2-%E6%B5%8F%E8%A7%88%E7%BD%91%E7%AB%99"><span class="toc-number">1.2.</span> <span class="toc-text">任务 2 浏览网站</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1-3-%E6%9F%A5%E7%9C%8B%E9%A1%B5%E9%9D%A2%E6%BA%90"><span class="toc-number">1.3.</span> <span class="toc-text">任务 3 查看页面源</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.3.1.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E9%A1%B5%E9%9D%A2%E6%BA%90%EF%BC%9F"><span class="toc-number">1.3.2.</span> <span class="toc-text">如何查看页面源？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#-1"><span class="toc-number">1.3.3.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A9%E6%88%91%E4%BB%AC%E6%9F%A5%E7%9C%8B%E4%B8%80%E4%BA%9B%E9%A1%B5%E9%9D%A2%E6%BA%90%E4%BB%A3%E7%A0%81%EF%BC%81"><span class="toc-number">1.3.4.</span> <span class="toc-text">让我们查看一些页面源代码！</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1-4-%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E5%B7%A5%E5%85%B7-%E6%A3%80%E6%9F%A5%E5%99%A8"><span class="toc-number">1.4.</span> <span class="toc-text">任务 4 开发人员工具 - 检查器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%93%E5%BC%80%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7"><span class="toc-number">1.5.</span> <span class="toc-text">打开开发者工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A3%80%E9%AA%8C%E5%91%98"><span class="toc-number">1.6.</span> <span class="toc-text">检验员</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1-5-%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E5%B7%A5%E5%85%B7-%E8%B0%83%E8%AF%95%E5%99%A8"><span class="toc-number">1.7.</span> <span class="toc-text">任务 5 开发人员工具 - 调试器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1-6-%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E5%B7%A5%E5%85%B7-%E7%BD%91%E7%BB%9C"><span class="toc-number">1.8.</span> <span class="toc-text">任务 6 开发人员工具 - 网络</span></a></li></ol></li></ol>
+      </div>
+    
+  </span>
+</div>
+
+    
+    <div class="content index py4 ">
+        
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle p-name" itemprop="name headline">
+        walk an application
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author p-author h-card" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span class="p-name" itemprop="name">Cx330 Zer0</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2023-06-21T09:36:55.000Z" class="dt-published" itemprop="datePublished">2023-06-21</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fa-solid fa-tag"></i>
+        <a class="p-category" href="/tags/len-sec/" rel="tag">len-sec</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content e-content" itemprop="articleBody">
+    <h1 id="遍历应用程序–tryhackme"><a href="#遍历应用程序–tryhackme" class="headerlink" title="遍历应用程序–tryhackme"></a>遍历应用程序–tryhackme</h1><h2 id="任务-1-遍历应用程序"><a href="#任务-1-遍历应用程序" class="headerlink" title="任务 1 遍历应用程序"></a>任务 1 遍历应用程序</h2><ul>
+<li><p>在这个房间里，您将学习如何仅使用浏览器中的内置工具手动检查 Web 应用程序的安全问题。通常情况下，自动化安全工具和脚本会遗漏许多潜在漏洞和有用信息。</p>
+<p>以下是您将在整个会议室中使用的内置浏览器工具的简短分类：</p>
+<ul>
+<li>查看源代码 - 使用浏览器查看网站的人类可读源代码。</li>
+<li>检查器 - 了解如何检查页面元素并进行更改以查看通常被阻止的内容。</li>
+<li>调试器 - 检查和控制页面 JavaScript 的流程</li>
+<li>网络 - 查看页面发出的所有网络请求。</li>
+</ul>
+</li>
+</ul>
+<h2 id="任务-2-浏览网站"><a href="#任务-2-浏览网站" class="headerlink" title="任务 2 浏览网站"></a>任务 2 浏览网站</h2><ul>
+<li><p>作为渗透测试人员，您在审查网站或 Web 应用程序时的职责是发现可能存在漏洞的功能并尝试利用它们来评估它们是否存在。这些功能通常是网站的一部分，需要与用户进行一些交互。</p>
+<p>查找网站的交互部分就像发现登录表单以手动查看网站的 JavaScript 一样简单。一个很好的起点就是用您的浏览器浏览网站并记下各个页面&#x2F;区域&#x2F;功能，并为每个页面&#x2F;区域&#x2F;功能做一个总结。</p>
+<p>Acme IT 支持网站的站点评论示例如下所示：</p>
+<table>
+<thead>
+<tr>
+<th><strong>特征</strong></th>
+<th><strong>URL</strong></th>
+<th><strong>概括</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主页</td>
+<td>&#x2F;</td>
+<td>此页面包含 Acme IT 支持如何处理其员工的公司照片的摘要。</td>
+</tr>
+<tr>
+<td>最新消息</td>
+<td>&#x2F;消息</td>
+<td>此页面包含公司最近发布的新闻文章列表，每篇新闻文章都有一个带有 ID 号的链接，即 &#x2F;news&#x2F;article?id&#x3D;1</td>
+</tr>
+<tr>
+<td>新闻文章</td>
+<td>&#x2F;新闻&#x2F;文章?id&#x3D;1</td>
+<td>显示个别新闻文章。有些文章似乎被屏蔽并只为高级客户保留。</td>
+</tr>
+<tr>
+<td>联系页面</td>
+<td>&#x2F;接触</td>
+<td>此页面包含供客户联系公司的表格。它包含姓名、电子邮件和消息输入字段以及一个发送按钮。</td>
+</tr>
+<tr>
+<td>顾客</td>
+<td>&#x2F;顾客</td>
+<td>此链接重定向到 &#x2F;customers&#x2F;login。</td>
+</tr>
+<tr>
+<td>客户登入</td>
+<td>&#x2F;客户&#x2F;登录</td>
+<td>此页面包含一个带有用户名和密码字段的登录表单。</td>
+</tr>
+<tr>
+<td>客户注册</td>
+<td>&#x2F;客户&#x2F;注册</td>
+<td>此页面包含一个用户注册表单，其中包含用户名、电子邮件、密码和密码确认输入字段。</td>
+</tr>
+<tr>
+<td>客户重置密码</td>
+<td>&#x2F;客户&#x2F;重置</td>
+<td>带有电子邮件地址输入字段的密码重置表单。</td>
+</tr>
+<tr>
+<td>客户仪表板</td>
+<td>&#x2F;顾客</td>
+<td>此页面包含提交给 IT 支持公司的用户票证列表和“创建票证”按钮。</td>
+</tr>
+<tr>
+<td>创建工单</td>
+<td>&#x2F;客户&#x2F;票&#x2F;新</td>
+<td>此页面包含一个表单，其中包含用于输入 IT 问题的文本框和用于创建 IT 支持票证的文件上传选项。</td>
+</tr>
+<tr>
+<td>客户账户</td>
+<td>&#x2F;客户&#x2F;账户</td>
+<td>此页面允许用户编辑他们的用户名、电子邮件和密码。</td>
+</tr>
+<tr>
+<td>客户登出</td>
+<td>&#x2F;客户&#x2F;注销</td>
+<td>此链接将用户从客户区域注销。</td>
+</tr>
+</tbody></table>
+<p>我们将开始更深入地研究我们在下一个任务中发现的一些页面。</p>
+</li>
+</ul>
+<h2 id="任务-3-查看页面源"><a href="#任务-3-查看页面源" class="headerlink" title="任务 3 查看页面源"></a>任务 3 查看页面源</h2><ul>
+<li><p>页面源代码是每次我们发出请求时从 Web 服务器返回给我们的浏览器&#x2F;客户端的人类可读代码。</p>
+<p>返回的代码由 HTML（超文本标记语言）、CSS（层叠样式表）和 JavaScript 组成，它告诉我们的浏览器要显示什么内容，如何显示它并添加与 JavaScript 的交互元素。</p>
+<p>出于我们的目的，查看页面源可以帮助我们发现有关 Web 应用程序的更多信息。</p>
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h3 id="如何查看页面源？"><a href="#如何查看页面源？" class="headerlink" title="如何查看页面源？"></a>如何查看页面源？</h3><ol>
+<li>查看网站时，您可以右键单击该页面，然后您会在菜单上看到一个显示“查看页面源代码”的选项。</li>
+<li>大多数浏览器都支持将 view-source: 放在 URL 的前面，例如 view-source:<a target="_blank" rel="noopener" href="https://www.google.com/">https://www.google.com/</a></li>
+<li>在浏览器菜单中，您会找到查看页面源代码的选项。此选项有时可以在子菜单中，例如开发人员工具或更多工具。</li>
+</ol>
+<h3 id="-1"><a href="#-1" class="headerlink" title=""></a></h3><h3 id="让我们查看一些页面源代码！"><a href="#让我们查看一些页面源代码！" class="headerlink" title="让我们查看一些页面源代码！"></a>让我们查看一些页面源代码！</h3><p>尝试查看 Acme IT 支持网站主页的页面源代码。不幸的是，解释您在这里看到的一切超出了这个房间的范围，您需要查看网站设计&#x2F;开发课程才能完全理解它。我们能做的，就是挑选出对我们很重要的信息。</p>
+<p>在页面顶部，您会注意到一些以 <code>&lt;!--</code> 开头并以 <code>--&gt;</code> 结尾的代码，这些是注释。注释是网站开发人员留下的消息，通常是为了向其他程序员解释代码中的某些内容，甚至是对自己的注释&#x2F;提醒。这些评论不会显示在实际网页上。此评论描述了主页是如何在开发新主页时是临时的。查看评论中的网页以获得您的第一个标志。</p>
+<p>HTML 中不同页面的链接写入锚标记（这些是以 <code>&lt;a</code> 开头的 HTML 元素），并且您将定向到的链接存储在 <code>href</code> 属性中。</p>
+<p>例如，您将在第 31 行看到联系页面链接：</p>
+<img src="/2023/06/21/walk-an-application/ccc306acf34d0c83ffd18f33da1a5994.png" class="" title="img">
+
+
+<p>如果您进一步查看页面源代码，会发现一个隐藏链接，指向以“secr”开头的页面，查看此链接即可获取另一个标志。显然，在现实情况下您不会获得标志，但您可能会发现企业使用一些私人区域来存储公司&#x2F;员工&#x2F;客户信息。</p>
+<p>可以使用 HTML 代码包含 CSS、JavaScript 和图像等外部文件。在此示例中，您会注意到这些文件都存储在同一目录中。如果您在 Web 浏览器中查看此目录，则存在配置错误。应显示的是空白页面或 403 禁止页面，其中包含错误，指出您无权访问该目录。相反，目录列表功能已启用，实际上列出了目录中的每个文件。有时这不是问题，目录中的所有文件都可以安全地被公众查看，但在某些情况下，备份文件、源代码或其他机密信息可能存储在此处。在本例中，我们在 flag.txt 文件中获得一个标志。</p>
+<p>如今，许多网站都不是从头开始制作的，而是使用所谓的框架。框架是预制代码的集合，允许开发人员轻松包含网站所需的常见功能，例如博客、用户管理、表单处理等等，从而节省开发人员数小时或数天的开发时间。</p>
+<p>查看页面源代码通常可以为我们提供线索，了解某个框架是否正在使用，如果使用，是哪个框架，甚至是什么版本。了解框架和版本可能是一个强有力的发现，因为框架中可能存在公共漏洞，并且网站可能没有使用最新版本。在页面底部，您将找到有关正在使用的框架和版本的评论以及该框架网站的链接。查看该框架的网站，您会发现我们的网站实际上已经过时了。阅读更新通知并使用您找到的信息来发现另一个标志。</p>
+</li>
+</ul>
+<h2 id="任务-4-开发人员工具-检查器"><a href="#任务-4-开发人员工具-检查器" class="headerlink" title="任务 4 开发人员工具 - 检查器"></a>任务 4 开发人员工具 - 检查器</h2><ul>
+<li><strong>开发者工具</strong></li>
+</ul>
+<p>  每个现代浏览器都包含开发工具；这是一个用于帮助 Web 开发人员调试 Web 应用程序的工具包，让您可以窥视网站的内部结构以了解正在发生的事情。作为渗透测试人员，我们可以利用这些工具来更好地理解 Web 应用程序。我们特别关注开发人员工具包的三个功能，Inspector、Debugger 和 Network。</p>
+<h2 id="打开开发者工具"><a href="#打开开发者工具" class="headerlink" title="打开开发者工具"></a><strong>打开开发者工具</strong></h2><p>  每个浏览器访问开发人员工具的方式都不同。如果您不确定如何访问它，请单击此任务右上角的“查看站点”按钮以获取有关如何访问适用于您的浏览器的工具的说明。</p>
+<h2 id="检验员"><a href="#检验员" class="headerlink" title="检验员"></a>检验员</h2><p>  页面源并不总是代表网页上显示的内容；这是因为 CSS、JavaScript 和用户交互可以更改页面的内容和样式，这意味着我们需要一种方法来查看此时浏览器窗口中显示的内容。 Element inspector 通过向我们提供网站上当前内容的实时表示来协助我们。</p>
+<p>  除了查看这个实时视图，我们还可以编辑页面元素并与之交互，这有助于 Web 开发人员调试问题。</p>
+<p>  在 Acme IT 支持网站上，单击进入新闻部分，您将在其中看到三篇新闻文章。</p>
+<p>  前两篇文章是可读的，但第三篇文章已被屏蔽，内容上方有一条浮动通知，说明您必须成为高级客户才能查看该文章。这些阻挡页面内容的浮动框通常被称为付费墙，因为它们在您希望看到的内容前面竖起了一堵隐喻的墙，直到您付费为止。</p>
+  <img src="/2023/06/21/walk-an-application/96b49cec6712a47c4ea986d26c6b7451-20230621182123623.png" class="" title="img">
+
+<p>  右键单击高级通知（付费专区），您应该能够从菜单中选择“检查”选项，该选项将根据您的浏览器或偏好在底部或右侧打开开发人员工具。您现在将看到构成网站的元素&#x2F;HTML（类似于下面的屏幕截图）。</p>
+  <img src="/2023/06/21/walk-an-application/image-20230621183153362.png" class="" title="image-20230621183153362">
+
+<p>  <em>（点击图片放大）</em></p>
+<p>  找到类为 <code>premium-customer-blocker</code> 的 <code>DIV</code> 元素并单击它。您将在样式框中看到所有适用于此元素的 CSS 样式，例如 <code>margin-top: 60px</code> 和 <code>text-align: center</code> 。我们感兴趣的样式是 <code>display: block</code> 。如果您单击单词 <code>block</code> ，您可以键入您自己选择的值。尝试键入 <code>none</code> ，这将使框消失，显示其下方的内容和一个标志。如果该元素没有显示字段，您可以单击最后一个样式下方并添加您自己的样式。试一试元素检查器，您会发现可以更改网站上的任何信息，包括内容。请记住，这只是在您的浏览器窗口中编辑的，当您按下刷新时，一切都会恢复正常。</p>
+<h2 id="任务-5-开发人员工具-调试器"><a href="#任务-5-开发人员工具-调试器" class="headerlink" title="任务 5 开发人员工具 - 调试器"></a>任务 5 开发人员工具 - 调试器</h2><ul>
+<li><p><strong>开发者工具 - 调试器</strong></p>
+<p>开发人员工具中的这个面板旨在用于调试 JavaScript，对于想要找出某些内容可能无法正常工作的 Web 开发人员来说，这又是一项出色的功能。但作为渗透测试人员，它为我们提供了深入挖掘 JavaScript 代码的选项。在 Firefox 和 Safari 中，此功能称为 Debugger，但在 Google Chrome 中，它称为 Sources。</p>
+<p>在 Acme IT 支持网站上，单击联系人页面，每次加载页面时，您可能会注意到屏幕上快速闪烁红色。我们将使用调试器来确定这个红色闪光是什么，以及它是否包含任何有趣的东西。作为渗透测试人员，调试红点不会是您在现实世界中要做的事情，但它确实允许我们使用此功能并习惯调试器。</p>
+<p>在这两种浏览器中，在左侧，您会看到当前网页正在使用的所有资源的列表。如果单击资产文件夹，您将看到一个名为 flash.min.js 的文件。单击此文件会显示 JavaScript 文件的内容。</p>
+<p>很多时候，当查看 javascript 文件时，您会注意到所有内容都在一行上，这是因为它已被最小化，这意味着所有格式（制表符、空格和换行符）都已被删除以使文件更小。该文件也不例外，而且它也被混淆了，故意使其难以阅读，因此其他开发人员无法轻松复制它。</p>
+<p>我们可以使用“Pretty Print”选项返回一些格式，该选项看起来像两个大括号 { } 以使其更具可读性，尽管由于混淆，仍然很难理解文件中发生的情况。如果滚动到 flash.min.js 文件的底部，您将看到以下行：<code>flash[&#39;remove&#39;](); </code></p>
+<img src="/2023/06/21/walk-an-application/image-20230621182858275.png" class="" title="image-20230621182858275">
+
+<img src="/2023/06/21/walk-an-application/image-20230621182923292.png" class="" title="image-20230621182923292">
+
+<img src="/2023/06/21/walk-an-application/image-20230621182936038.png" class="" title="image-20230621182936038">
+
+
+
+<p><em>（点击图片放大）</em></p>
+<p>这一点 JavaScript 就是从页面中删除红色弹出窗口的原因。我们可以利用调试器的另一个功能，称为 <strong>断点</strong>.这些是代码中我们可以强制浏览器停止处理 JavaScript 并暂停当前执行的点。</p>
+<p>如果单击包含上述代码的行号，您会发现它变成蓝色；您现在已在此行上插入了一个断点。现在尝试刷新页面，您会发现红色框保留在页面上而不是消失，并且它包含一个标志。</p>
+</li>
+</ul>
+<h2 id="任务-6-开发人员工具-网络"><a href="#任务-6-开发人员工具-网络" class="headerlink" title="任务 6 开发人员工具 - 网络"></a>任务 6 开发人员工具 - 网络</h2><ul>
+<li><p>**开发人员工具 - 网络<br>**</p>
+<p>开发人员工具上的网络选项卡可用于跟踪网页发出的每个外部请求。如果单击“网络”选项卡然后刷新页面，您将看到该页面请求的所有文件。</p>
+<p>尝试在联系页面上执行此操作；如果列表过于拥挤，您可以按垃圾桶图标删除列表。</p>
+<p>在网络选项卡打开的情况下，尝试填写联系表格并按 <strong>发信息</strong>按钮。您会注意到网络选项卡中的一个事件，这是使用 AJAX 方法在后台提交的表单。 AJAX是一种在Web应用程序后台通过改变当前网页来不干扰地发送和接收网络数据的方法。</p>
+<img src="/2023/06/21/walk-an-application/image-20230621183101244.png" class="" title="image-20230621183101244">
+
+
+
+<p>检查联系表单创建的网络选项卡上的新条目，并查看数据发送到的页面以显示标志。</p>
+</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+        
+          <li><a href="/">Home</a></li>
+        
+          <li><a href="/about/">About</a></li>
+        
+          <li><a href="/archives/">Writing</a></li>
+        
+          <li><a target="_blank" rel="noopener" href="https://github.com/zygithub-single?tab=repositories">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    
+    
+      <div id="toc-footer" style="display: none">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%81%8D%E5%8E%86%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E2%80%93tryhackme"><span class="toc-number">1.</span> <span class="toc-text">遍历应用程序–tryhackme</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1-1-%E9%81%8D%E5%8E%86%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="toc-number">1.1.</span> <span class="toc-text">任务 1 遍历应用程序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1-2-%E6%B5%8F%E8%A7%88%E7%BD%91%E7%AB%99"><span class="toc-number">1.2.</span> <span class="toc-text">任务 2 浏览网站</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1-3-%E6%9F%A5%E7%9C%8B%E9%A1%B5%E9%9D%A2%E6%BA%90"><span class="toc-number">1.3.</span> <span class="toc-text">任务 3 查看页面源</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link"><span class="toc-number">1.3.1.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E9%A1%B5%E9%9D%A2%E6%BA%90%EF%BC%9F"><span class="toc-number">1.3.2.</span> <span class="toc-text">如何查看页面源？</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#-1"><span class="toc-number">1.3.3.</span> <span class="toc-text"></span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%A9%E6%88%91%E4%BB%AC%E6%9F%A5%E7%9C%8B%E4%B8%80%E4%BA%9B%E9%A1%B5%E9%9D%A2%E6%BA%90%E4%BB%A3%E7%A0%81%EF%BC%81"><span class="toc-number">1.3.4.</span> <span class="toc-text">让我们查看一些页面源代码！</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1-4-%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E5%B7%A5%E5%85%B7-%E6%A3%80%E6%9F%A5%E5%99%A8"><span class="toc-number">1.4.</span> <span class="toc-text">任务 4 开发人员工具 - 检查器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%89%93%E5%BC%80%E5%BC%80%E5%8F%91%E8%80%85%E5%B7%A5%E5%85%B7"><span class="toc-number">1.5.</span> <span class="toc-text">打开开发者工具</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A3%80%E9%AA%8C%E5%91%98"><span class="toc-number">1.6.</span> <span class="toc-text">检验员</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1-5-%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E5%B7%A5%E5%85%B7-%E8%B0%83%E8%AF%95%E5%99%A8"><span class="toc-number">1.7.</span> <span class="toc-text">任务 5 开发人员工具 - 调试器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1-6-%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E5%B7%A5%E5%85%B7-%E7%BD%91%E7%BB%9C"><span class="toc-number">1.8.</span> <span class="toc-text">任务 6 开发人员工具 - 网络</span></a></li></ol></li></ol>
+      </div>
+    
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://example.com/2023/06/21/walk-an-application/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://example.com/2023/06/21/walk-an-application/&text=walk an application"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://example.com/2023/06/21/walk-an-application/&title=walk an application"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://example.com/2023/06/21/walk-an-application/&is_video=false&description=walk an application"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=walk an application&body=Check out this article: http://example.com/2023/06/21/walk-an-application/"><i class="fa-solid fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://example.com/2023/06/21/walk-an-application/&title=walk an application"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://example.com/2023/06/21/walk-an-application/&title=walk an application"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://example.com/2023/06/21/walk-an-application/&title=walk an application"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://example.com/2023/06/21/walk-an-application/&title=walk an application"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://example.com/2023/06/21/walk-an-application/&name=walk an application&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://example.com/2023/06/21/walk-an-application/&t=walk an application"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa-solid fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        
+          <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa-solid fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa-solid fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa-solid fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2023
+    Cx330 Zer0
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="https://github.com/zygithub-single?tab=repositories">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script>
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script>
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="fa-regular fa-clone"></i>';
+    btn += '</span>';
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
